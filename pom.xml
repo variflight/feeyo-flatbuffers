@@ -4,22 +4,12 @@
     <groupId>com.feeyo</groupId>
     <artifactId>feeyo-flatbuffers</artifactId>
     <version>0.1.0</version>
-
     <packaging>jar</packaging>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <!-- 私服配置 -->
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>local private nexus</name>
-            <url>http://192.168.5.13:8089/content/groups/public</url>
-        </repository>
-    </repositories>
 
     <dependencies>
     
