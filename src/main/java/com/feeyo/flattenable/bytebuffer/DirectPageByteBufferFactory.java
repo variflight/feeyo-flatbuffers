@@ -1,10 +1,11 @@
 package com.feeyo.flattenable.bytebuffer;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Map;
 
-import com.feeyo.flattenable.bytebuffer.page.Pages;
-import com.google.common.collect.Maps;
+import com.feeyo.buffer.BufferPool;
+import com.feeyo.buffer.page.PageBufferPool;
 
 /**
  * 基于堆外内存
@@ -14,35 +15,24 @@ import com.google.common.collect.Maps;
  */
 public class DirectPageByteBufferFactory extends AbstractByteBufferFactory {
 	//
-	private final Pages pages;
+	private final BufferPool bufferPool;
     
     public DirectPageByteBufferFactory(long capacity, int chunkSize) {
-    	this.pages = new Pages(capacity, chunkSize);
-    	this.pages.initialize();
+    	this.bufferPool = new PageBufferPool(capacity, capacity, new int[]{ chunkSize }, ByteOrder.LITTLE_ENDIAN);
     }
 
 	@Override
 	public ByteBuffer newByteBuffer(int capacity) {
-		return pages.allocate(capacity);
+		return bufferPool.allocate(capacity);
 	}
 
 	@Override
 	public void releaseByteBuffer(ByteBuffer theBuf) {
-		pages.recycle(theBuf);
-	}
-	
-	//
-	public void destroy() {
-		pages.destroy();
+		bufferPool.recycle(theBuf);
 	}
 
 	@Override
 	public Map<String, Object> getStatistics() {
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("buffer.factory.capacity", pages.getCapacity());
-		map.put("buffer.factory.usedSize", pages.getUsageSize());
-		map.put("buffer.factory.usedCnt", pages.getUsageCount());
-		map.put("buffer.factory.sharedCnt", pages.getSharedOptsCount());
-		return map;
+		return bufferPool.getStatistics();
 	}
 }

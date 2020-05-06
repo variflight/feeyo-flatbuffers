@@ -1,55 +1,33 @@
 package com.feeyo.flattenable.bytebuffer;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Map;
 
-import com.feeyo.flattenable.bytebuffer.bucket.AbstractBucket;
-import com.feeyo.flattenable.bytebuffer.bucket.BucketPool;
-import com.google.common.collect.Maps;
+import com.feeyo.buffer.BufferPool;
+import com.feeyo.buffer.bucket.BucketBufferPool;
 
 public class DirectBucketByteBufferFactory extends AbstractByteBufferFactory {
 	//
-	private final BucketPool bucketPool;
+	private final BufferPool bufferPool;
     
     public DirectBucketByteBufferFactory(long initialCapacity, long maxCapacity, int[] chunkSizes) {
-    	this.bucketPool = new BucketPool(initialCapacity, maxCapacity, chunkSizes);
+    	this.bufferPool = new BucketBufferPool(initialCapacity, maxCapacity, chunkSizes, ByteOrder.LITTLE_ENDIAN);
     }
 
 	@Override
 	public ByteBuffer newByteBuffer(int capacity) {
-		return bucketPool.allocate(capacity);
+		return bufferPool.allocate(capacity);
 	}
 
 	@Override
 	public void releaseByteBuffer(ByteBuffer theBuf) {
-		bucketPool.recycle(theBuf);
+		bufferPool.recycle(theBuf);
 	}
 	
-	//
-	public void destroy() {
-		bucketPool.destroy();
-	}
-
 
 	@Override
 	public Map<String, Object> getStatistics() {
-		//
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("buffer.factory.min", bucketPool.getMinBufferSize());
-		map.put("buffer.factory.used", bucketPool.getUsedBufferSize());
-		map.put("buffer.factory.max", bucketPool.getMaxBufferSize());
-		//
-		AbstractBucket[] buckets = bucketPool.buckets();
-		for (AbstractBucket b: buckets) {
-			StringBuffer sBuffer = new StringBuffer();
-			sBuffer.append(" chunkSize=").append( b.getChunkSize() ).append(",");
-			sBuffer.append(" queueSize=").append( b.getQueueSize() ).append( ", " );
-			sBuffer.append(" count=").append( b.getCount() ).append( ", " );
-			sBuffer.append(" useCount=").append( b.getUsedCount() ).append( ", " );
-			sBuffer.append(" shared=").append( b.getShared() );		
-			//
-			map.put("buffer.factory.bucket." + b.getChunkSize(),  sBuffer.toString());
-		}
-		return map;
+		return bufferPool.getStatistics();
 	}
 }

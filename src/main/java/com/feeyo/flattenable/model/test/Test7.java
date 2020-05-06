@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 
-import com.feeyo.flattenable.bytebuffer.MappedPageByteBufferFactory;
 import com.feeyo.flattenable.model.BaseMutableFileModel;
 import com.feeyo.flattenable.model.BaseMutableModel;
 import com.google.flatbuffers.FlatBufferBuilder;

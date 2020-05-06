@@ -41,9 +41,6 @@ public class ByteBufferFactoryTest {
 		
 		System.out.println("total=" +  total + ", max=" + max + ", min=" + min + ", avg=" + avg + ", i=" +i);
 		
-		
-		byteBufferFactory = new MappedPageByteBufferFactory("/Users/zhuam/git/feeyo/feeyoflatbuffers/test", capacity, chunkSize);
-		System.out.println( byteBufferFactory.newByteBuffer(1024) instanceof MappedByteBuffer );
 
 
 	}
