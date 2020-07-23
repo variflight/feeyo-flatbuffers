@@ -9,20 +9,17 @@ import com.google.flatbuffers.FlatBufferBuilder;
 import static com.google.flatbuffers.Constants.*;
 
 public class FlattenableHelper {
-
 	//
 	public static <T extends Flattenable> int flattenToBuffer(FlatBufferBuilder flatBufferBuilder, T flattenable) {
 		if (flattenable == null)
 			return 0;
 		return flattenable.flattenToBuffer(flatBufferBuilder);
 	}
-
 	//
 	public static <T extends Flattenable> int flattenToBuffer(FlatBufferBuilder flatBufferBuilder, List<T> list) {
 		int x = createFlattenableVector(flatBufferBuilder, list);
 		return createTable(flatBufferBuilder, x);
 	}
-
 	//
 	public static int flattenToBuffer(FlatBufferBuilder flatBufferBuilder, String[] strArray) {
 		int x = createStringVector(flatBufferBuilder, strArray);
@@ -56,7 +53,6 @@ public class FlattenableHelper {
 
 	//
 	public static <T extends Flattenable> int flattenToBuffer(FlatBufferBuilder flatBufferBuilder, Map<String, T> map) {
-		//
 		if (map == null || map.isEmpty())
 			return 0;
 		//
@@ -98,13 +94,11 @@ public class FlattenableHelper {
 
 	//////
 	//
-	public static int createVector(FlatBufferBuilder builder, ByteBuffer data) {
-		int size = data.position() / Integer.BYTES;
+	public static int createVector(FlatBufferBuilder builder, ByteBuffer offsetBuffer) {
+		int size = offsetBuffer.position() / Integer.BYTES;
 		builder.startVector(SIZEOF_INT, size, SIZEOF_INT);
-
 		for (int i = size - 1; i >= 0; i--)
-			builder.addOffset(data.getInt(i * Integer.BYTES));
-
+			builder.addOffset(offsetBuffer.getInt(i * Integer.BYTES));
 		return builder.endVector();
 	}
 
@@ -115,8 +109,7 @@ public class FlattenableHelper {
 		return flatBufferBuilder.endVector();
 	}
 
-	public static <T extends Flattenable> int createFlattenableVector(FlatBufferBuilder flatBufferBuilder,
-			Collection<T> flattenables) {
+	public static <T extends Flattenable> int createFlattenableVector(FlatBufferBuilder flatBufferBuilder, Collection<T> flattenables) {
 		if (flattenables == null || flattenables.size() == 0)
 			return 0;
 		//
@@ -144,14 +137,14 @@ public class FlattenableHelper {
 	}
 
 	//
-	public static int createShortVector(FlatBufferBuilder flatBufferBuilder, short[] shorts) {
-		if (shorts == null || shorts.length == 0)
+	public static int createShortVector(FlatBufferBuilder flatBufferBuilder, short[] shortArray) {
+		if (shortArray == null || shortArray.length == 0)
 			return 0;
 		//
-		int size = shorts.length;
+		int size = shortArray.length;
 		flatBufferBuilder.startVector(SIZEOF_SHORT, size, SIZEOF_SHORT);
 		for (int i = size - 1; i >= 0; i--)
-			flatBufferBuilder.putShort(shorts[i]);
+			flatBufferBuilder.putShort(shortArray[i]);
 		return flatBufferBuilder.endVector();
 	}
 

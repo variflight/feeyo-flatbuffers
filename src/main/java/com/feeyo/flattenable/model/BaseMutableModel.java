@@ -9,7 +9,6 @@ import com.feeyo.flattenable.FlatBufferMutationHelper;
  *
  */
 public abstract class BaseMutableModel extends BaseModel {
-
 	//
 	// mutate base field
 	//
