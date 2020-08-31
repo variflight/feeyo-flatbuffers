@@ -2,8 +2,6 @@ package com.feeyo.flattenable.model;
 
 import static com.google.flatbuffers.Constants.SIZEOF_INT;
 
-import java.nio.ByteBuffer;
-
 import com.feeyo.flattenable.FlatBufferMutationHelper;
 
 /**
@@ -85,7 +83,7 @@ public abstract class BaseMutableModel extends BaseModel {
 	
 	//
 	// Check file_identifier equal
-	public boolean isFileIdentifierEquals(ByteBuffer buffer, String file_identifier) {
+	public boolean isFileIdentifierEquals(String file_identifier) {
 		int index = buffer.position() + SIZEOF_INT;
 		if (file_identifier.charAt(0) == (char) buffer.get(index)
 				&& file_identifier.charAt(1) == (char) buffer.get(index + 1)
