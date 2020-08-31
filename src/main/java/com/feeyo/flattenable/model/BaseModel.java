@@ -227,6 +227,18 @@ public abstract class BaseModel implements Flattenable {
 	}
 	
 	//
+	// Check file_identifier equal
+	public boolean isFileIdentifierEquals(String file_identifier) {
+		int index = buffer.position() + SIZEOF_INT;
+		if (file_identifier.charAt(0) == (char) buffer.get(index)
+				&& file_identifier.charAt(1) == (char) buffer.get(index + 1)
+				&& file_identifier.charAt(2) == (char) buffer.get(index + 2)
+				&& file_identifier.charAt(3) == (char) buffer.get(index + 3)) {
+			return true;
+		}
+		return false;
+	}
+	//
 	@Override
 	public byte[] toByteArray() {
 	    // BaseModel 中的position并不是实际 ByteBuffer 的 position
