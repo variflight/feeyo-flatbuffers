@@ -65,6 +65,7 @@ final public class Utf8Safe extends Utf8 {
 	//
 	// TODO: 优化，尽量减少 char[] 的生产量 ( addBy zhuam)
 	private static final int CHARS_LENGTH = 64;
+	private static final char EMPTY_CHAR = (char) 0;
 	private static ThreadLocal<char[]> charsThreadLocal = new ThreadLocal<char[]>() {
    	 	protected char[] initialValue() {
             return new char[CHARS_LENGTH];
@@ -149,7 +150,7 @@ final public class Utf8Safe extends Utf8 {
     if ( size <= CHARS_LENGTH) {
     	resultArr = charsThreadLocal.get();
     	for(int i = 0; i < resultArr.length; i++) {
-    		resultArr[i] = '\u0000';
+    		resultArr[i] = EMPTY_CHAR;
     	}
     } else {
     	resultArr = new char[size];
@@ -236,7 +237,7 @@ final public class Utf8Safe extends Utf8 {
     if ( length <= CHARS_LENGTH) {
     	resultArr = charsThreadLocal.get();
     	for(int i = 0; i < resultArr.length; i++) {
-    		resultArr[i] = '\u0000';
+    		resultArr[i] = EMPTY_CHAR;
     	}
     } else {
     	resultArr = new char[length];
