@@ -61,6 +61,15 @@ import static java.lang.Character.toCodePoint;
  * Table 3-7. <em>Well Formed UTF-8 Byte Sequences</em>.
  */
 final public class Utf8Safe extends Utf8 {
+	
+	//
+	// TODO: 优化，尽量减少 char[] 的生产量 ( addBy zhuam)
+	private static final int CHARS_LENGTH = 64;
+	private static ThreadLocal<char[]> charsThreadLocal = new ThreadLocal<char[]>() {
+   	 	protected char[] initialValue() {
+            return new char[CHARS_LENGTH];
+        }
+    };
 
   /**
    * Returns the number of bytes in the UTF-8-encoded form of {@code sequence}. For a string,
@@ -132,12 +141,23 @@ final public class Utf8Safe extends Utf8 {
 
     int offset = index;
     final int limit = offset + size;
+    char[] resultArr;
+    int resultPos = 0;
 
     // The longest possible resulting String is the same as the number of input bytes, when it is
     // all ASCII. For other cases, this over-allocates and we will truncate in the end.
-    char[] resultArr = new char[size];
-    int resultPos = 0;
-
+    if ( size <= CHARS_LENGTH) {
+    	resultArr = charsThreadLocal.get();
+    	for(int i = 0; i < resultArr.length; i++) {
+    		resultArr[i] = '\u0000';
+    	}
+    } else {
+    	resultArr = new char[size];
+    }
+//    
+//    char[] resultArr = new char[size];
+//    int resultPos = 0;
+//
     // Optimize for 100% ASCII (Hotspot loves small simple top-level loops like this).
     // This simple loop stops when we encounter a byte >= 0x80 (i.e. non-ASCII).
     while (offset < limit) {
@@ -207,12 +227,24 @@ final public class Utf8Safe extends Utf8 {
     }
 
     final int limit = offset + length;
+    char[] resultArr;
+    int resultPos = 0;
+
 
     // The longest possible resulting String is the same as the number of input bytes, when it is
     // all ASCII. For other cases, this over-allocates and we will truncate in the end.
-    char[] resultArr = new char[length];
-    int resultPos = 0;
-
+    if ( length <= CHARS_LENGTH) {
+    	resultArr = charsThreadLocal.get();
+    	for(int i = 0; i < resultArr.length; i++) {
+    		resultArr[i] = '\u0000';
+    	}
+    } else {
+    	resultArr = new char[length];
+    }
+//    
+//    char[] resultArr = new char[length];
+//    int resultPos = 0;
+//
     // Optimize for 100% ASCII (Hotspot loves small simple top-level loops like this).
     // This simple loop stops when we encounter a byte >= 0x80 (i.e. non-ASCII).
     while (offset < limit) {

@@ -24,7 +24,6 @@ public abstract class BaseModel implements Flattenable {
 
     @Override
     public void initFromByteBuffer(ByteBuffer buffer) {
-    	//
         int position = buffer.position();
         initFromByteBuffer(buffer, position + buffer.getInt(position));
     }
