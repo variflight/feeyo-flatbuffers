@@ -179,7 +179,7 @@ public final class FlatBufferHelper {
         return arr;
     }
     
-    /*
+    /**
      * TODO: Important, only for fixed length 
      */
     public static void getByteArray(ByteBuffer buffer, int position, int index, byte[] value) {
@@ -207,7 +207,7 @@ public final class FlatBufferHelper {
         return arr;
     }
     
-    /*
+    /**
      * TODO: Important, only for fixed length
      */
     public static void getShortArray(ByteBuffer buffer, int position, int index, short[] value) {
@@ -234,7 +234,7 @@ public final class FlatBufferHelper {
         return arr;
     }
     
-    /*
+    /**
      * TODO: Important, only for fixed length
      */
     public static void getIntArray(ByteBuffer buffer, int position, int index, int[] value) {
@@ -261,7 +261,7 @@ public final class FlatBufferHelper {
         return arr;
     }
     
-    /*
+    /**
      * TODO: Important, only for fixed length
      */
     public static void getLongArray(ByteBuffer buffer, int position, int index, long[] value) {
@@ -288,7 +288,7 @@ public final class FlatBufferHelper {
         return arr;
     }
     
-    /*
+    /**
      * TODO: Important, only for fixed length
      */
     public static void getFloatArray(ByteBuffer buffer, int position, int index, float[] value) {
