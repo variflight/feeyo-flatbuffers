@@ -8,7 +8,7 @@ import java.nio.ByteOrder;
 import static com.google.flatbuffers.Constants.*;
 
 /**
- *
+ * FlatBuffer 操作助手
  */
 public final class FlatBufferHelper {
 
@@ -179,6 +179,22 @@ public final class FlatBufferHelper {
         return arr;
     }
     
+    /*
+     * TODO: Important, only for fixed length 
+     */
+    public static void getByteArray(ByteBuffer buffer, int position, int index, byte[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value byte array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.get((i * SIZEOF_BYTE) + o + 4);
+    }
+    
     //
     public static short[] getShortArray(ByteBuffer buffer, int position, int index) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -189,6 +205,22 @@ public final class FlatBufferHelper {
         for (int i = 0; i < arr.length; i++) 
             arr[i] = buffer.getShort((i * SIZEOF_SHORT) + o + 4);
         return arr;
+    }
+    
+    /*
+     * TODO: Important, only for fixed length
+     */
+    public static void getShortArray(ByteBuffer buffer, int position, int index, short[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value short array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.getShort((i * SIZEOF_SHORT) + o + 4);
     }
 
     public static int[] getIntArray(ByteBuffer buffer, int position, int index) {
@@ -201,6 +233,22 @@ public final class FlatBufferHelper {
             arr[i] = buffer.getInt((i * SIZEOF_INT) + o + 4);
         return arr;
     }
+    
+    /*
+     * TODO: Important, only for fixed length
+     */
+    public static void getIntArray(ByteBuffer buffer, int position, int index, int[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value int array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.getInt((i * SIZEOF_INT) + o + 4);
+    }
 
     public static long[] getLongArray(ByteBuffer buffer, int position, int index) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -211,6 +259,22 @@ public final class FlatBufferHelper {
         for (int i = 0; i < arr.length; i++) 
             arr[i] = buffer.getLong((i * SIZEOF_LONG) + o + 4);
         return arr;
+    }
+    
+    /*
+     * TODO: Important, only for fixed length
+     */
+    public static void getLongArray(ByteBuffer buffer, int position, int index, long[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value long array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.getLong((i * SIZEOF_LONG) + o + 4);
     }
 
     public static float[] getFloatArray(ByteBuffer buffer, int position, int index) {
@@ -223,6 +287,22 @@ public final class FlatBufferHelper {
             arr[i] = buffer.getFloat((i * SIZEOF_FLOAT) + o + 4);
         return arr;
     }
+    
+    /*
+     * TODO: Important, only for fixed length
+     */
+    public static void getFloatArray(ByteBuffer buffer, int position, int index, float[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value float array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.getFloat((i * SIZEOF_FLOAT) + o + 4);
+    }
 
     public static double[] getDoubleArray(ByteBuffer buffer, int position, int index) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -233,6 +313,19 @@ public final class FlatBufferHelper {
         for (int i = 0; i < arr.length; i++) 
             arr[i] = buffer.getDouble((i * SIZEOF_DOUBLE) + o + 4);
         return arr;
+    }
+    //
+    public static void getDoubleArray(ByteBuffer buffer, int position, int index, double[] value) {
+        int o = getChildObjectPosition(buffer, position, index);
+        if (o == 0)
+            return;
+        //
+        int size = getSize(buffer, o);
+        if ( value.length < size )
+        	throw new RuntimeException("Value double array is not long enough, size=" +  size);
+        //
+        for (int i = 0; i < size; i++) 
+        	value[i] = buffer.getDouble((i * SIZEOF_DOUBLE) + o + 4);
     }
 
     public static String[] getStringArray(ByteBuffer buffer, int position, int index) {
