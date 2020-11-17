@@ -109,6 +109,15 @@ public abstract class BaseModel implements Flattenable {
             throw e;
         }
     }
+    
+    //
+    protected void getBytes(int index, byte[] value) {
+        try {
+            FlatBufferHelper.getByteArray(buffer, position, index, value);
+        } catch (IndexOutOfBoundsException e) {
+            throw e;
+        }
+    }
 
     protected <T extends Flattenable> T getFlattenable(int index, Class<T> clazz) {
         try {

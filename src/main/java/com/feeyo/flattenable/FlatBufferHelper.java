@@ -180,7 +180,7 @@ public final class FlatBufferHelper {
     }
     
     /**
-     * TODO: Important, only for fixed length 
+     * TODO: Important, only for fixed size 
      */
     public static void getByteArray(ByteBuffer buffer, int position, int index, byte[] value) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -208,7 +208,7 @@ public final class FlatBufferHelper {
     }
     
     /**
-     * TODO: Important, only for fixed length
+     * TODO: Important, only for fixed size
      */
     public static void getShortArray(ByteBuffer buffer, int position, int index, short[] value) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -235,7 +235,7 @@ public final class FlatBufferHelper {
     }
     
     /**
-     * TODO: Important, only for fixed length
+     * TODO: Important, only for fixed size
      */
     public static void getIntArray(ByteBuffer buffer, int position, int index, int[] value) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -262,7 +262,7 @@ public final class FlatBufferHelper {
     }
     
     /**
-     * TODO: Important, only for fixed length
+     * TODO: Important, only for fixed size
      */
     public static void getLongArray(ByteBuffer buffer, int position, int index, long[] value) {
         int o = getChildObjectPosition(buffer, position, index);
@@ -289,7 +289,7 @@ public final class FlatBufferHelper {
     }
     
     /**
-     * TODO: Important, only for fixed length
+     * TODO: Important, only for fixed size
      */
     public static void getFloatArray(ByteBuffer buffer, int position, int index, float[] value) {
         int o = getChildObjectPosition(buffer, position, index);
