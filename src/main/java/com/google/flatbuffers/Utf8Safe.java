@@ -64,7 +64,7 @@ final public class Utf8Safe extends Utf8 {
 	
 	//
 	// TODO: 优化，尽量减少 char[] 的生产量 ( addBy zhuam)
-	private static final int CHARS_LENGTH = 64;
+	private static final int CHARS_LENGTH = 256;
 	private static final char EMPTY_CHAR = (char) 0;
 	private static ThreadLocal<char[]> charsThreadLocal = new ThreadLocal<char[]>() {
    	 	protected char[] initialValue() {
