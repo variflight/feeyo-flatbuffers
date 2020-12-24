@@ -108,6 +108,13 @@ public class FlattenableHelper {
 			flatBufferBuilder.addOffset(offsets[j]);
 		return flatBufferBuilder.endVector();
 	}
+	
+	public static int createVector(FlatBufferBuilder flatBufferBuilder, int[] offsets, int off, int length) {
+		flatBufferBuilder.startVector(SIZEOF_INT, length, SIZEOF_INT);
+		for (int j = (length + off - 1); j >= off; j--)
+			flatBufferBuilder.addOffset(offsets[j]);
+		return flatBufferBuilder.endVector();
+	}
 
 	public static <T extends Flattenable> int createFlattenableVector(FlatBufferBuilder flatBufferBuilder, Collection<T> flattenables) {
 		if (flattenables == null || flattenables.size() == 0)
