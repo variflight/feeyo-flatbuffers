@@ -85,7 +85,7 @@ public abstract class BaseModel implements Flattenable {
         }
     }
     
-    protected double getFloat(int index) {
+    protected float getFloat(int index) {
     	try {
     		return FlatBufferHelper.getFloat(buffer, position, index, 0F);
     	} catch (IndexOutOfBoundsException e) {

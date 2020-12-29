@@ -179,7 +179,7 @@ public abstract class BaseCompressibleModel extends BaseMutableModel {
     }
     
 	@Override
-    protected double getFloat(int index) {
+    protected float getFloat(int index) {
 		checkCompressed();
     	return super.getFloat(index);
     }
