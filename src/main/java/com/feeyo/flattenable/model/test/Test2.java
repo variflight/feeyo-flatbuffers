@@ -8,6 +8,7 @@ import com.feeyo.flattenable.FlatBufferHelper;
 import com.feeyo.flattenable.FlattenableHelper;
 import com.feeyo.flattenable.FlattenableIterator;
 import com.feeyo.flattenable.model.BaseModel;
+import com.feeyo.flattenable.util.ByteUtil;
 import com.google.flatbuffers.FlatBufferBuilder;
 
 public class Test2 {
@@ -27,7 +28,13 @@ public class Test2 {
 		int x = FlattenableHelper.flattenToBuffer(flatBufferBuilder, m1List);
 		System.out.println("x=" + x);
 		ByteBuffer buffer = flatBufferBuilder.dataBuffer();
+		///////
 		
+		byte[] bb = new byte[ buffer.capacity() - buffer.position() ];
+		for(int i=0; i< bb.length; i++)
+			bb[i] = buffer.get();
+		
+		System.out.println( ByteUtil.dump(bb, 0, bb.length));
 		
 		int position = FlatBufferHelper.getRootObjectPosition(buffer);
         int o = FlatBufferHelper.getChildObjectPosition(buffer, position, 0);
