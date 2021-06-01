@@ -51,28 +51,21 @@ public class Test2 {
 	}
 
 	public static class User extends BaseModel {
-
 		private int id;
 		private String name;
 		
-		public User(){
-			//
-		}
+		public User(){}
 
 		public User(int id, String name) {
 			this.id = id;
 			this.name = name;
 		}
-		
 		public int getId() {
 			return getInt(0);
 		}
-		
 		public String getName() {
 			return getString(1);
 		}
-
-
 		@Override
 		public int flattenToBuffer(FlatBufferBuilder flatBufferBuilder) {
 			int nameOffset = flatBufferBuilder.createString(name);
@@ -83,7 +76,6 @@ public class Test2 {
 			flatBufferBuilder.finish(end);
 			return end;
 		}
-
 	}
 
 }
